@@ -53,11 +53,17 @@ print_r($projects);
         </div>
     </nav>
 
-    <section class="py-3 bg-primary text-white text-left">
-        <div class="container">
-            <h1 class="display-5 fw-bold">
+    <section class="py-3 bg-primary text-white">
+        <div class="container d-flex justify-content-between align-items-center">
+            
+            <h1 class="display-5 fw-bold mb-0">
                 Projects:
             </h1>
+
+            <a href="../projects/create.php" class="btn btn-success btn-lg">
+                Create
+            </a>
+
         </div>
     </section>
 

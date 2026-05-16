@@ -56,11 +56,17 @@ print_r($issues);
         </div>
     </nav>
 
-    <section class="py-3 bg-primary text-white text-left">
-        <div class="container">
-            <h1 class="display-5 fw-bold">
+    <section class="py-3 bg-primary text-white">
+        <div class="container d-flex justify-content-between align-items-center">
+            
+            <h1 class="display-5 fw-bold mb-0">
                 Issues:
             </h1>
+
+            <a href="../issues/create.php" class="btn btn-success btn-lg">
+                Create
+            </a>
+
         </div>
     </section>
 
@@ -82,11 +88,11 @@ print_r($issues);
                 <?php $count=1; foreach($issues as $issue) : ?>
                     <tr>
                         <th scope="row"><?= $count ?></th>
-                        <td><?= $issue['name'] ?></th>
-                        <td><?= $issue['title'] ?></th>
-                        <td><?= $issue['description'] ?></th>
-                        <td><?= $issue['status'] ?></th>
-                        <td><?= $issue['priority'] ?></th>
+                        <td><?= htmlspecialchars($issue['name']) ?></th>
+                        <td><?= htmlspecialchars($issue['title']) ?></th>
+                        <td><?= htmlspecialchars($issue['description']) ?></th>
+                        <td><?= htmlspecialchars($issue['status']) ?></th>
+                        <td><?= htmlspecialchars($issue['priority']) ?></th>
                         <td><a href="./update.php?id=<?= $issue['id'] ?>" class="btn btn-warning">Edit</a></td>
                         <td><a href="./delete.php?id=<?= $issue['id'] ?>"  class="btn btn-danger">Delete</a></td>
                     </tr>
