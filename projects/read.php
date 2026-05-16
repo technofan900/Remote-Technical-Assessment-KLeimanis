@@ -80,15 +80,51 @@ print_r($projects);
                             Edit Project
                         </a>
 
-                        <a href="./update.php?id=<?= $project['id'] ?>" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $project['id'] ?>">
                             Delete Project
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="deleteModal<?= $project['id'] ?>" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    Are you sure you want to delete:
+                    <strong><?= htmlspecialchars($project['name']) ?></strong>?
+                </div>
+
+                <div class="modal-footer">
+
+                    <form method="POST" action="delete.php">
+                        <input type="hidden" name="id" value="<?= $project['id'] ?>">
+                        <button type="submit" class="btn btn-danger">
+                            Yes, Delete
+                        </button>
+                    </form>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                </div>
+
+                </div>
+            </div>
+            </div>
+
         <?php endforeach; ?>
         </div>
     </section>
+
+
 
 
     <!-- Footer -->
