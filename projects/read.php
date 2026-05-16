@@ -69,11 +69,11 @@ print_r($projects);
 
                     <div class="card-body">
                         <h3 class="card-title text-primary">
-                            <?= $project['name']; ?>
+                            <?= htmlspecialchars($project['name']); ?>
                         </h3>
 
                         <p class="card-text text-muted">
-                            <?= $project['description'] ?>
+                            <?= htmlspecialchars($project['description']); ?>
                         </p>
 
                         <a href="./update.php?id=<?= $project['id'] ?>" class="btn btn-warning">
