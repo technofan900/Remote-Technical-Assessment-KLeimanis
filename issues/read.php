@@ -94,8 +94,48 @@ print_r($issues);
                         <td><?= htmlspecialchars($issue['status']) ?></th>
                         <td><?= htmlspecialchars($issue['priority']) ?></th>
                         <td><a href="./update.php?id=<?= $issue['id'] ?>" class="btn btn-warning">Edit</a></td>
-                        <td><a href="./delete.php?id=<?= $issue['id'] ?>"  class="btn btn-danger">Delete</a></td>
+                        <td>                        
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $issue['id'] ?>">
+                            delete
+                        </button>
+                        </td>
                     </tr>
+
+
+                    <div class="modal fade" id="deleteModal<?= $issue['id'] ?>" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Issue</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            Are you sure you want to delete:
+                            <strong><?= htmlspecialchars($issue['name']) ?></strong>?
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <form method="POST" action="delete.php">
+                                <input type="hidden" name="id" value="<?= $issue['id'] ?>">
+                                <button type="submit" class="btn btn-danger">
+                                    Yes, Delete
+                                </button>
+                            </form>
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+
+                        </div>
+
+                        </div>
+                    </div>
+                    </div>
+
+
                 <?php $count++; endforeach; ?>
             </tbody>
         </table>
