@@ -2,24 +2,43 @@
 
 require "../config/database.php";
 
-$project_id = $_GET['id'];
+$project_id = $_GET['id'] ?? null;
+
+if (!$project_id || !ctype_digit($project_id)) {
+    die("Invalid project ID");
+}
 
 $stmt = $pdo->prepare('SELECT * FROM projects WHERE id = ?');
 $stmt->execute([$project_id]);
 $project = $stmt->fetch(PDO::FETCH_ASSOC);
 
+if (!$project) {
+    die("Project not found");
+}
+
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = trim($_POST['name']);
-    $description = trim($_POST['description']);
+    $name = trim($_POST['name'] ?? '');
+    $description = trim($_POST['description'] ?? '');
 
-    if (!empty($name) && !empty($description)) {
+    if (empty($name)) {
+        $errors[] = "Name is required.";
+    }
+
+    if (empty($description)) {
+        $errors[] = "Description is required.";
+    }
+
+    if (empty($errors)) {
 
         $stmt = $pdo->prepare(
             "UPDATE projects
-            SET name = ?, description = ?
-            WHERE id = ?"
+             SET name = ?, description = ?
+             WHERE id = ?"
         );
+
         $stmt->execute([$name, $description, $project_id]);
 
         header('Location: ./read.php');
@@ -80,6 +99,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </h1>
         </div>
     </section>
+
+    <?php if (!empty($errors)): ?>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="alert alert-danger w-50 text-center" role="alert">
+                <ul class="mb-0">
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    <?php endif; ?>
+
 
     <section class="container my-5">
         <form method="POST">

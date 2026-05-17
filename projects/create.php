@@ -2,12 +2,22 @@
 
 require '../config/database.php';
 
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $name = trim($_POST['name']) ?? '';
     $description = trim($_POST['description']) ?? '';
 
-    if (!empty($name) && !empty($description)) {
+    if (empty($name)) {
+        $errors[] = 'Name is required.';
+    }
+
+    if (empty($description)) {
+        $errors[] = 'Description is required.';
+    }
+
+    if (empty($errors)) {
 
         $stmt = $pdo->prepare("INSERT INTO projects (name, description) VALUES (?,?)");
         $stmt->execute([$name, $description]);
@@ -71,6 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </h1>
         </div>
     </section>
+
+    <?php if (!empty($errors)): ?>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="alert alert-danger w-50 text-center" role="alert">
+                <ul class="mb-0">
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <section class="container my-5">
         <form method="POST">

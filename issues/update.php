@@ -117,6 +117,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </section>
 
+    <?php if (!empty($errors)): ?>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="alert alert-danger w-50 text-center" role="alert">
+                <ul class="mb-0">
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <section class="container my-5">
         <form method="POST">
             <div class="form-group pb-3">
