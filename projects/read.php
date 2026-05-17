@@ -5,8 +5,6 @@ require '../config/database.php';
 $stmt = $pdo->query("SELECT * FROM projects ORDER BY created_at DESC;");
 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-print_r($projects);
-
 ?>
 
 <!DOCTYPE html>

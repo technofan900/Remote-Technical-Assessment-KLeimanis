@@ -8,8 +8,6 @@ $stmt = $pdo->query("SELECT i.id, p.name, i.title, i.description, i.status, i.pr
                         ORDER BY created_at DESC;");
 $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-print_r($issues);
-
 ?>
 
 <!DOCTYPE html>
